@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="tryfiberquasarnoasync" default="all">
+
+
+    <property file="tryfiberquasarnoasync.properties"/>
+    <!-- Uncomment the following property if no tests compilation is needed -->
+    <!--
+    <property name="skip.tests" value="true"/>
+     -->
+
+    <!-- Compiler options -->
+
+    <property name="compiler.debug" value="on"/>
+    <property name="compiler.generate.no.warnings" value="off"/>
+    <property name="compiler.args" value=""/>
+    <property name="compiler.max.memory" value="700m"/>
+    <patternset id="ignored.files">
+        <exclude name="**/*.hprof/**"/>
+        <exclude name="**/*.pyc/**"/>
+        <exclude name="**/*.pyo/**"/>
+        <exclude name="**/*.rbc/**"/>
+        <exclude name="**/*.yarb/**"/>
+        <exclude name="**/*~/**"/>
+        <exclude name="**/.DS_Store/**"/>
+        <exclude name="**/.git/**"/>
+        <exclude name="**/.hg/**"/>
+        <exclude name="**/.svn/**"/>
+        <exclude name="**/CVS/**"/>
+        <exclude name="**/__pycache__/**"/>
+        <exclude name="**/_svn/**"/>
+        <exclude name="**/vssver.scc/**"/>
+        <exclude name="**/vssver2.scc/**"/>
+    </patternset>
+    <patternset id="library.patterns">
+        <include name="*.egg"/>
+        <include name="*.jar"/>
+        <include name="*.ear"/>
+        <include name="*.swc"/>
+        <include name="*.war"/>
+        <include name="*.zip"/>
+        <include name="*.ane"/>
+    </patternset>
+    <patternset id="compiler.resources">
+        <exclude name="**/?*.java"/>
+        <exclude name="**/?*.form"/>
+        <exclude name="**/?*.class"/>
+        <exclude name="**/?*.groovy"/>
+        <exclude name="**/?*.scala"/>
+        <exclude name="**/?*.flex"/>
+        <exclude name="**/?*.kt"/>
+        <exclude name="**/?*.clj"/>
+        <exclude name="**/?*.aj"/>
+    </patternset>
+
+
+    <!-- Project Libraries -->
+
+    <path id="library.maven:_co.paralleluniverse:quasar-actors:0.7.10.classpath">
+        <pathelement
+                location="${path.variable.maven_repository}/co/paralleluniverse/quasar-actors/0.7.10/quasar-actors-0.7.10.jar"/>
+    </path>
+
+    <path id="library.maven:_co.paralleluniverse:quasar-core:0.7.10.classpath">
+        <pathelement
+                location="${path.variable.maven_repository}/co/paralleluniverse/quasar-core/0.7.10/quasar-core-0.7.10.jar"/>
+    </path>
+
+    <path id="library.maven:_com.esotericsoftware:kryo:4.0.0.classpath">
+        <pathelement location="${path.variable.maven_repository}/com/esotericsoftware/kryo/4.0.0/kryo-4.0.0.jar"/>
+    </path>
+
+    <path id="library.maven:_com.esotericsoftware:minlog:1.3.0.classpath">
+        <pathelement location="${path.variable.maven_repository}/com/esotericsoftware/minlog/1.3.0/minlog-1.3.0.jar"/>
+    </path>
+
+    <path id="library.maven:_com.esotericsoftware:reflectasm:1.11.3.classpath">
+        <pathelement
+                location="${path.variable.maven_repository}/com/esotericsoftware/reflectasm/1.11.3/reflectasm-1.11.3.jar"/>
+    </path>
+
+    <path id="library.maven:_com.google.guava:guava:20.0.classpath">
+        <pathelement location="${path.variable.maven_repository}/com/google/guava/guava/20.0/guava-20.0.jar"/>
+    </path>
+
+    <path id="library.maven:_de.javakaffee:kryo-serializers:0.42.classpath">
+        <pathelement
+                location="${path.variable.maven_repository}/de/javakaffee/kryo-serializers/0.42/kryo-serializers-0.42.jar"/>
+    </path>
+
+    <path id="library.maven:_io.dropwizard.metrics:metrics-core:3.2.3.classpath">
+        <pathelement
+                location="${path.variable.maven_repository}/io/dropwizard/metrics/metrics-core/3.2.3/metrics-core-3.2.3.jar"/>
+    </path>
+
+    <path id="library.maven:_net.bytebuddy:byte-buddy:1.7.1.classpath">
+        <pathelement location="${path.variable.maven_repository}/net/bytebuddy/byte-buddy/1.7.1/byte-buddy-1.7.1.jar"/>
+    </path>
+
+    <path id="library.maven:_org.apache.ant:ant-launcher:1.9.4.classpath">
+        <pathelement
+                location="${path.variable.maven_repository}/org/apache/ant/ant-launcher/1.9.4/ant-launcher-1.9.4.jar"/>
+    </path>
+
+    <path id="library.maven:_org.apache.ant:ant:1.9.4.classpath">
+        <pathelement location="${path.variable.maven_repository}/org/apache/ant/ant/1.9.4/ant-1.9.4.jar"/>
+    </path>
+
+    <path id="library.maven:_org.hdrhistogram:hdrhistogram:2.1.9.classpath">
+        <pathelement
+                location="${path.variable.maven_repository}/org/hdrhistogram/HdrHistogram/2.1.9/HdrHistogram-2.1.9.jar"/>
+    </path>
+
+    <path id="library.maven:_org.latencyutils:latencyutils:2.0.3.classpath">
+        <pathelement
+                location="${path.variable.maven_repository}/org/latencyutils/LatencyUtils/2.0.3/LatencyUtils-2.0.3.jar"/>
+    </path>
+
+    <path id="library.maven:_org.objenesis:objenesis:2.2.classpath">
+        <pathelement location="${path.variable.maven_repository}/org/objenesis/objenesis/2.2/objenesis-2.2.jar"/>
+    </path>
+
+    <path id="library.maven:_org.slf4j:slf4j-api:1.7.25.classpath">
+        <pathelement location="${path.variable.maven_repository}/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.jar"/>
+    </path>
+
+    <path id="library.maven:_org.slf4j:slf4j-simple:1.7.25.classpath">
+        <pathelement
+                location="${path.variable.maven_repository}/org/slf4j/slf4j-simple/1.7.25/slf4j-simple-1.7.25.jar"/>
+    </path>
+
+    <!-- Modules -->
+
+
+    <!-- Module try-fiber-quasar-noasync -->
+
+    <dirname property="module.try-fiber-quasar-noasync.basedir" file="${ant.file}"/>
+
+
+    <property name="compiler.args.try-fiber-quasar-noasync"
+              value="-encoding UTF-8 -source 8 -target 1.8 ${compiler.args}"/>
+
+    <property name="try-fiber-quasar-noasync.output.dir"
+              value="${module.try-fiber-quasar-noasync.basedir}/target/classes"/>
+    <property name="try-fiber-quasar-noasync.testoutput.dir"
+              value="${module.try-fiber-quasar-noasync.basedir}/target/test-classes"/>
+
+    <path id="try-fiber-quasar-noasync.module.bootclasspath">
+        <!-- Paths to be included in compilation bootclasspath -->
+    </path>
+
+    <path id="try-fiber-quasar-noasync.module.production.classpath">
+        <path refid="library.maven:_co.paralleluniverse:quasar-actors:0.7.10.classpath"/>
+        <path refid="library.maven:_io.dropwizard.metrics:metrics-core:3.2.3.classpath"/>
+        <path refid="library.maven:_com.google.guava:guava:20.0.classpath"/>
+        <path refid="library.maven:_org.slf4j:slf4j-api:1.7.25.classpath"/>
+        <path refid="library.maven:_net.bytebuddy:byte-buddy:1.7.1.classpath"/>
+        <path refid="library.maven:_co.paralleluniverse:quasar-core:0.7.10.classpath"/>
+        <path refid="library.maven:_org.hdrhistogram:hdrhistogram:2.1.9.classpath"/>
+        <path refid="library.maven:_org.latencyutils:latencyutils:2.0.3.classpath"/>
+        <path refid="library.maven:_com.esotericsoftware:kryo:4.0.0.classpath"/>
+        <path refid="library.maven:_com.esotericsoftware:reflectasm:1.11.3.classpath"/>
+        <path refid="library.maven:_com.esotericsoftware:minlog:1.3.0.classpath"/>
+        <path refid="library.maven:_org.objenesis:objenesis:2.2.classpath"/>
+        <path refid="library.maven:_de.javakaffee:kryo-serializers:0.42.classpath"/>
+        <path refid="library.maven:_org.slf4j:slf4j-simple:1.7.25.classpath"/>
+        <path refid="library.maven:_org.apache.ant:ant:1.9.4.classpath"/>
+        <path refid="library.maven:_org.apache.ant:ant-launcher:1.9.4.classpath"/>
+    </path>
+
+    <path id="try-fiber-quasar-noasync.runtime.production.module.classpath">
+        <pathelement location="${try-fiber-quasar-noasync.output.dir}"/>
+        <path refid="library.maven:_co.paralleluniverse:quasar-actors:0.7.10.classpath"/>
+        <path refid="library.maven:_io.dropwizard.metrics:metrics-core:3.2.3.classpath"/>
+        <path refid="library.maven:_com.google.guava:guava:20.0.classpath"/>
+        <path refid="library.maven:_org.slf4j:slf4j-api:1.7.25.classpath"/>
+        <path refid="library.maven:_net.bytebuddy:byte-buddy:1.7.1.classpath"/>
+        <path refid="library.maven:_co.paralleluniverse:quasar-core:0.7.10.classpath"/>
+        <path refid="library.maven:_org.hdrhistogram:hdrhistogram:2.1.9.classpath"/>
+        <path refid="library.maven:_org.latencyutils:latencyutils:2.0.3.classpath"/>
+        <path refid="library.maven:_com.esotericsoftware:kryo:4.0.0.classpath"/>
+        <path refid="library.maven:_com.esotericsoftware:reflectasm:1.11.3.classpath"/>
+        <path refid="library.maven:_com.esotericsoftware:minlog:1.3.0.classpath"/>
+        <path refid="library.maven:_org.objenesis:objenesis:2.2.classpath"/>
+        <path refid="library.maven:_de.javakaffee:kryo-serializers:0.42.classpath"/>
+        <path refid="library.maven:_org.slf4j:slf4j-simple:1.7.25.classpath"/>
+        <path refid="library.maven:_org.apache.ant:ant:1.9.4.classpath"/>
+        <path refid="library.maven:_org.apache.ant:ant-launcher:1.9.4.classpath"/>
+    </path>
+
+    <path id="try-fiber-quasar-noasync.module.classpath">
+        <pathelement location="${try-fiber-quasar-noasync.output.dir}"/>
+        <path refid="library.maven:_co.paralleluniverse:quasar-actors:0.7.10.classpath"/>
+        <path refid="library.maven:_io.dropwizard.metrics:metrics-core:3.2.3.classpath"/>
+        <path refid="library.maven:_com.google.guava:guava:20.0.classpath"/>
+        <path refid="library.maven:_org.slf4j:slf4j-api:1.7.25.classpath"/>
+        <path refid="library.maven:_net.bytebuddy:byte-buddy:1.7.1.classpath"/>
+        <path refid="library.maven:_co.paralleluniverse:quasar-core:0.7.10.classpath"/>
+        <path refid="library.maven:_org.hdrhistogram:hdrhistogram:2.1.9.classpath"/>
+        <path refid="library.maven:_org.latencyutils:latencyutils:2.0.3.classpath"/>
+        <path refid="library.maven:_com.esotericsoftware:kryo:4.0.0.classpath"/>
+        <path refid="library.maven:_com.esotericsoftware:reflectasm:1.11.3.classpath"/>
+        <path refid="library.maven:_com.esotericsoftware:minlog:1.3.0.classpath"/>
+        <path refid="library.maven:_org.objenesis:objenesis:2.2.classpath"/>
+        <path refid="library.maven:_de.javakaffee:kryo-serializers:0.42.classpath"/>
+        <path refid="library.maven:_org.slf4j:slf4j-simple:1.7.25.classpath"/>
+        <path refid="library.maven:_org.apache.ant:ant:1.9.4.classpath"/>
+        <path refid="library.maven:_org.apache.ant:ant-launcher:1.9.4.classpath"/>
+    </path>
+
+    <path id="try-fiber-quasar-noasync.runtime.module.classpath">
+        <pathelement location="${try-fiber-quasar-noasync.testoutput.dir}"/>
+        <pathelement location="${try-fiber-quasar-noasync.output.dir}"/>
+        <path refid="library.maven:_co.paralleluniverse:quasar-actors:0.7.10.classpath"/>
+        <path refid="library.maven:_io.dropwizard.metrics:metrics-core:3.2.3.classpath"/>
+        <path refid="library.maven:_com.google.guava:guava:20.0.classpath"/>
+        <path refid="library.maven:_org.slf4j:slf4j-api:1.7.25.classpath"/>
+        <path refid="library.maven:_net.bytebuddy:byte-buddy:1.7.1.classpath"/>
+        <path refid="library.maven:_co.paralleluniverse:quasar-core:0.7.10.classpath"/>
+        <path refid="library.maven:_org.hdrhistogram:hdrhistogram:2.1.9.classpath"/>
+        <path refid="library.maven:_org.latencyutils:latencyutils:2.0.3.classpath"/>
+        <path refid="library.maven:_com.esotericsoftware:kryo:4.0.0.classpath"/>
+        <path refid="library.maven:_com.esotericsoftware:reflectasm:1.11.3.classpath"/>
+        <path refid="library.maven:_com.esotericsoftware:minlog:1.3.0.classpath"/>
+        <path refid="library.maven:_org.objenesis:objenesis:2.2.classpath"/>
+        <path refid="library.maven:_de.javakaffee:kryo-serializers:0.42.classpath"/>
+        <path refid="library.maven:_org.slf4j:slf4j-simple:1.7.25.classpath"/>
+        <path refid="library.maven:_org.apache.ant:ant:1.9.4.classpath"/>
+        <path refid="library.maven:_org.apache.ant:ant-launcher:1.9.4.classpath"/>
+    </path>
+
+
+    <patternset id="excluded.from.module.try-fiber-quasar-noasync">
+        <patternset refid="ignored.files"/>
+    </patternset>
+
+    <patternset id="excluded.from.compilation.try-fiber-quasar-noasync">
+        <patternset refid="excluded.from.module.try-fiber-quasar-noasync"/>
+    </patternset>
+
+    <path id="try-fiber-quasar-noasync.module.sourcepath">
+        <dirset dir="${module.try-fiber-quasar-noasync.basedir}">
+            <include name="src/main/java"/>
+            <include name="src/main/resources"/>
+        </dirset>
+    </path>
+
+    <path id="try-fiber-quasar-noasync.module.test.sourcepath">
+        <dirset dir="${module.try-fiber-quasar-noasync.basedir}">
+            <include name="src/test/java"/>
+        </dirset>
+    </path>
+
+
+    <target name="compile.module.try-fiber-quasar-noasync"
+            depends="compile.module.try-fiber-quasar-noasync.production,compile.module.try-fiber-quasar-noasync.tests"
+            description="Compile module try-fiber-quasar-noasync"/>
+
+    <target name="compile.module.try-fiber-quasar-noasync.production"
+            description="Compile module try-fiber-quasar-noasync; production classes">
+        <mkdir dir="${try-fiber-quasar-noasync.output.dir}"/>
+        <javac destdir="${try-fiber-quasar-noasync.output.dir}" debug="${compiler.debug}"
+               nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true">
+            <compilerarg line="${compiler.args.try-fiber-quasar-noasync}"/>
+            <bootclasspath refid="try-fiber-quasar-noasync.module.bootclasspath"/>
+            <classpath refid="try-fiber-quasar-noasync.module.production.classpath"/>
+            <src refid="try-fiber-quasar-noasync.module.sourcepath"/>
+            <patternset refid="excluded.from.compilation.try-fiber-quasar-noasync"/>
+        </javac>
+
+        <copy todir="${try-fiber-quasar-noasync.output.dir}">
+            <fileset dir="${module.try-fiber-quasar-noasync.basedir}/src/main/java">
+                <patternset refid="compiler.resources"/>
+                <type type="file"/>
+            </fileset>
+            <fileset dir="${module.try-fiber-quasar-noasync.basedir}/src/main/resources">
+                <patternset refid="compiler.resources"/>
+                <type type="file"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="compile.module.try-fiber-quasar-noasync.tests"
+            depends="compile.module.try-fiber-quasar-noasync.production"
+            description="compile module try-fiber-quasar-noasync; test classes" unless="skip.tests">
+        <mkdir dir="${try-fiber-quasar-noasync.testoutput.dir}"/>
+        <javac destdir="${try-fiber-quasar-noasync.testoutput.dir}" debug="${compiler.debug}"
+               nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true">
+            <compilerarg line="${compiler.args.try-fiber-quasar-noasync}"/>
+            <bootclasspath refid="try-fiber-quasar-noasync.module.bootclasspath"/>
+            <classpath refid="try-fiber-quasar-noasync.module.classpath"/>
+            <src refid="try-fiber-quasar-noasync.module.test.sourcepath"/>
+            <patternset refid="excluded.from.compilation.try-fiber-quasar-noasync"/>
+        </javac>
+
+        <copy todir="${try-fiber-quasar-noasync.testoutput.dir}">
+            <fileset dir="${module.try-fiber-quasar-noasync.basedir}/src/test/java">
+                <patternset refid="compiler.resources"/>
+                <type type="file"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="clean.module.try-fiber-quasar-noasync" description="cleanup module">
+        <delete dir="${try-fiber-quasar-noasync.output.dir}"/>
+        <delete dir="${try-fiber-quasar-noasync.testoutput.dir}"/>
+    </target>
+
+    <target name="init" description="Build initialization">
+        <!-- Perform any build initialization in this target -->
+    </target>
+
+    <target name="clean" depends="clean.module.try-fiber-quasar-noasync, clean.artifact.compile"
+            description="cleanup all"/>
+
+    <target name="build.modules" depends="init, clean, compile.module.try-fiber-quasar-noasync"
+            description="build all modules"/>
+
+    <target name="init.artifacts">
+        <property name="artifacts.temp.dir" value="${basedir}/__artifacts_temp"/>
+        <property name="artifact.output.compile" value="${basedir}/out/artifacts/compile"/>
+        <mkdir dir="${artifacts.temp.dir}"/>
+    </target>
+
+    <target name="clean.artifact.compile" description="clean compile artifact output">
+        <delete dir="${artifact.output.compile}"/>
+    </target>
+
+    <target name="artifact.compile" depends="init.artifacts, compile.module.try-fiber-quasar-noasync"
+            description="Build &#39;compile&#39; artifact">
+        <mkdir dir="${artifact.output.compile}"/>
+        <mkdir dir="${artifact.output.compile}/classes"/>
+        <copy todir="${artifact.output.compile}/classes">
+            <fileset dir="${try-fiber-quasar-noasync.output.dir}"/>
+        </copy>
+    </target>
+
+    <target name="build.all.artifacts" depends="artifact.compile" description="Build all artifacts">
+
+        <!-- Delete temporary files -->
+        <delete dir="${artifacts.temp.dir}"/>
+    </target>
+
+    <target name="all" depends="build.modules, build.all.artifacts" description="build all"/>
+
+    <path id="classpath_ant_and_aot_task">
+        <fileset dir="./lib_ant"/>
+    </path>
+
+
+    <taskdef name="aot_code" classname="co.paralleluniverse.fibers.instrument.InstrumentationTask">
+        <classpath>
+            <path refid="classpath_ant_and_aot_task"/>
+        </classpath>
+
+    </taskdef>
+
+    <target name="instrumentation_byte_code">
+        <aot_code>
+            <fileset dir="out/artifacts/compile/classes"/>
+        </aot_code>
+    </target>
+
+
+</project>
